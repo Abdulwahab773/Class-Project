@@ -4,127 +4,156 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Styled Form</title>
+    <title>Registration Form - SMIT</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="bg-white min-h-screen font-sans">
-    <!-- Navbar -->
-    <nav class="bg-blue-400 shadow py-4">
-        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
-            <h1 class="text-3xl italic text-white font-bold text-gray-800">SMIT</h1>
-            <ul class="flex space-x-6 text-gray-700 font-medium">
-                <li><a href="#" class="hover:text-green-200">Home</a></li>
-                <li><a href="#" class="hover:text-green-200">Courses</a></li>
-                <li><a href="#" class="hover:text-green-200">Contact</a></li>
-            </ul>
+
+    <div id="loader" class="hidden fixed inset-0 bg-white bg-opacity-70 flex items-center justify-center z-50 ">
+        <div class="flex flex-col items-center">
+            <div class="w-12 h-12 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
+            <p class="mt-4 text-blue-500 text-xl font-medium">Loading...</p>
         </div>
-    </nav>
+    </div>
 
-    <!-- Form Container -->
-    <div class="max-w-6xl mx-auto mt-8 p-8 bg-white rounded-lg shadow-md">
-        <h2 class="text-2xl font-bold text-center mb-6 text-gray-700">Registration Form</h2>
+    <div class="max-w-6xl mx-auto mt-6 p-8 bg-white rounded-lg shadow-2xl">
+        <img src="https://saylani-it-registration-form.netlify.app/image/logo.6lrMPvRL.png"
+            class="mx-auto w-36 h-24  object-fill" alt="">
+        <h2 class="text-2xl font-bold text-center mb-6 mt-6 text-gray-700">Registration Form</h2>
 
-        <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Country & City -->
+        <form id="form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
                 <label class="block mb-1 font-medium label-blue">Select Country</label>
-                <select class="w-full rounded px-3 py-2 custom-border focus:outline-none">
+                <select required id="country" class="w-full rounded px-3 py-2 custom-border focus:outline-none">
+                    <option value="" disabled selected>Select Country</option>
                     <option>Pakistan</option>
                 </select>
             </div>
             <div>
                 <label class="block mb-1 font-medium label-blue">Select City</label>
-                <select class="w-full rounded px-3 py-2 custom-border focus:outline-none">
+                <select required id="city" class="w-full rounded px-3 py-2 custom-border focus:outline-none">
+                    <option value="" disabled selected>Select a city</option>
                     <option>Karachi</option>
+                    <option>Islamabad</option>
+                    <option>Sukkur</option>
                 </select>
             </div>
 
             <!-- Course & Proficiency -->
             <div>
-                <label class="block mb-1 font-medium label-blue">Select Course or Exam</label>
-                <select class="w-full rounded px-3 py-2 custom-border focus:outline-none">
-                    <option>Choose option</option>
+                <label class="block mb-1 font-medium label-blue">Select Course or Event</label>
+                <select required id="course" class="w-full rounded px-3 py-2 custom-border focus:outline-none">
+                    <option value="" disabled selected>Select Course or Event</option>
+                    <option>Modern Web & App Development</option>
+                    <option>Flutter</option>
+                    <option>AI & Data Science</option>
+                    <option>Agentic AI</option>
+                    <option>Gen AI</option>
+                    <option>UI/UX Designing with AI</option>
+                    <option>Graphic Designing with AI</option>
+                    <option>Digital Marketing</option>
                 </select>
             </div>
             <div>
                 <label class="block mb-1 font-medium label-blue">Select Your Computer Proficiency</label>
-                <select class="w-full rounded px-3 py-2 custom-border focus:outline-none">
-                    <option>Choose option</option>
+                <select required id="computer_ proficiency"
+                    class="w-full rounded px-3 py-2 custom-border focus:outline-none">
+                    <option value="" disabled selected>Select Your Computer Proficiency</option>
+                    <option>None</option>
+                    <option>Beginner</option>
+                    <option>Intermediate</option>
+                    <option>Advanced</option>
                 </select>
             </div>
 
             <!-- Personal Info -->
             <div>
-                <label class="block mb-1 font-medium label-blue">First Name</label>
-                <input type="text" placeholder="Enter your first name"
+                <label class="block mb-1 font-medium label-blue">Full Name</label>
+                <input required id="fullName" type="text" placeholder="Enter your full name"
                     class="w-full custom-border px-3 py-2 rounded focus:outline-none" />
             </div>
 
             <div>
                 <label class="block mb-1 font-medium label-blue">Father Name</label>
-                <input type="text" placeholder="Enter father's name"
+                <input required id="fatherName" type="text" placeholder="Enter father's name"
                     class="w-full custom-border px-3 py-2 rounded focus:outline-none" />
             </div>
 
             <div>
                 <label class="block mb-1 font-medium label-blue">Email</label>
-                <input type="email" placeholder="Enter your email"
+                <input required id="email" type="email" placeholder="Enter your email"
                     class="w-full custom-border px-3 py-2 rounded focus:outline-none" />
             </div>
 
             <div>
                 <label class="block mb-1 font-medium label-blue">Phone</label>
-                <input type="text" placeholder="Enter your phone number"
+                <input required id="phone" type="number" placeholder="Enter your phone number"
                     class="w-full custom-border px-3 py-2 rounded focus:outline-none" />
             </div>
 
             <div>
                 <label class="block mb-1 font-medium label-blue">CNIC</label>
-                <input type="text" placeholder="Enter CNIC"
+                <input required id="cnic" type="number" placeholder="Enter CNIC"
                     class="w-full custom-border px-3 py-2 rounded focus:outline-none" />
             </div>
 
             <div>
-                <label class="block mb-1 font-medium label-blue">Father CNIC (Optional)</label>
-                <input type="text" placeholder="Enter father CNIC"
+                <label class="block mb-1 font-medium label-blue">Father CNIC</label>
+                <input required id="fatherCNIC" type="number" placeholder="Enter father CNIC"
                     class="w-full custom-border px-3 py-2 rounded focus:outline-none" />
             </div>
 
             <!-- DOB & Gender -->
             <div>
                 <label class="block mb-1 font-medium label-blue">Date of Birth</label>
-                <input type="date" class="w-full custom-border rounded px-3 py-2 focus:outline-none" />
+                <input required id="dateOfBirth" type="date"
+                    class="w-full custom-border rounded px-3 py-2 focus:outline-none" />
             </div>
             <div>
                 <label class="block mb-1 font-medium label-blue">Gender</label>
-                <select class="w-full custom-border rounded px-3 py-2 focus:outline-none">
+                <select required id="gender" class="w-full custom-border rounded px-3 py-2 focus:outline-none">
                     <option>Male</option>
                     <option>Female</option>
                 </select>
             </div>
 
             <!-- Address -->
-            <input type="text" placeholder="Address"
+            <input type="text" id="address" placeholder="Address" required
                 class="md:col-span-2 custom-border px-3 py-2 rounded focus:outline-none" />
 
             <!-- Qualification & Reason -->
             <div>
                 <label class="block mb-1 font-medium label-blue">Last Qualification</label>
-                <select class="w-full custom-border rounded px-3 py-2 focus:outline-none">
-                    <option>Choose option</option>
+                <select required id="lastQualification"
+                    class="w-full custom-border rounded px-3 py-2 focus:outline-none">
+                    <option value="" disabled selected>Last Qualification</option>
+                    <option>Matric</option>
+                    <option>Intermediate</option>
+                    <option>Undergraduate</option>
+                    <option>Graduate</option>
+                    <option>Masters</option>
+                    <option>PHD</option>
+                    <option>Other</option>
                 </select>
             </div>
             <div>
                 <label class="block mb-1 font-medium label-blue">Why do you want to apply?</label>
-                <select class="w-full custom-border rounded px-3 py-2 focus:outline-none">
-                    <option>Choose option</option>
+                <select required id="reasonToApply" class="w-full custom-border rounded px-3 py-2 focus:outline-none">
+                    <option value="" disabled selected>Choose option</option>
+                    <option>To improve my career opportunities</option>
+                    <option>To learn new skills</option>
+                    <option>To start freelancing</option>
+                    <option>I prefer flexible/online learning</option>
+                    <option>I have personal interest in this field</option>
+                    <option>To get certified for a job</option>
+                    <option>To upgrade my current skills</option>
                 </select>
             </div>
 
-            <!-- Upload Field -->
             <div class="md:col-span-2">
                 <label class="block mb-1 font-medium label-blue">Upload Picture</label>
                 <label for="file-upload"
@@ -134,29 +163,27 @@
                             d="M7 16V4m0 0L3 8m4-4l4 4M17 8h4m-2 0v8m0 0l4-4m-4 4l-4-4" />
                     </svg>
                     <span class="text-green-700 font-medium">Click to upload image (JPG/PNG)</span>
-                    <input id="file-upload" type="file" class="hidden" />
+                    <input required id="file-upload" type="file" class="hidden" />
                 </label>
                 <p class="text-sm text-gray-500 mt-2">Upload clear picture with white background. Max size: 1MB</p>
             </div>
 
-            <!-- Terms -->
+
             <div class="md:col-span-2 mt-2 space-y-2 text-sm text-gray-600">
                 <p>1. I confirm all information above is accurate and true.</p>
                 <p>2. I agree to follow all institute policies and instructions.</p>
                 <p>3. Any false information may result in disqualification.</p>
             </div>
-
-            <!-- Submit -->
             <div class="md:col-span-2">
-                <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-2 rounded-md 
-         hover:bg-blue-600 hover:shadow-lg 
-         focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all duration-200">
+                <button type="submit"
+                    class="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all duration-200">
                     Submit Form
                 </button>
-
             </div>
         </form>
     </div>
+
+    <script type="module" src="app.js"></script>
 </body>
 
 </html>
