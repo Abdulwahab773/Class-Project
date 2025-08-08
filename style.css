@@ -1,0 +1,15 @@
+.custom-border {
+    border: 1px solid #90EE90;
+    /* Light green default border */
+}
+
+.custom-border:focus {
+    border-color: #3b82f6 !important;
+    /* Blue on focus */
+    box-shadow: 0 0 0 3px rgba(147, 197, 253, 0.5);
+    /* Light shadow */
+}
+
+.label-blue {
+    color: #3b8fc7;
+}
